@@ -22,3 +22,9 @@ Aprofundei meu conhecimento em:
 Aprendi a tratar a conexão e desconexão de usuários no site, bem como a manipular alertas no site usando os recursos `flash` e `session` do Flask, que utilizam cookies do navegador. Também descobri como passar o loop `for` para encontrar o diretório de arquivos estáticos, utilizando o comando `url_for({ "static", filename="css/bootstrap.css" })`.
 
 Flask, além de ser mais fácil de usar para desenvolver pequenos projetos, mostra-se robusto e intuitivo, inclusive ao trabalhar com ORMs.
+
+
+## ORM e SQLAlchemy 
+
+
+Ao decorrer do tempo o termo de ``SQLAlchemy`` que vem da extensão do ``Flask`` que no caso é o ``ORM`` que é (Orientado, Relacional, Mapeado)

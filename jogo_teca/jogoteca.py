@@ -1,35 +1,48 @@
-from flask import Flask, render_template, request, redirect, session, flash, url_for
+from flask import Flask, render_template, request
+from flask import redirect, session, flash, url_for
+from flask_sqlalchemy import SQLAlchemy
 
-class Jogo:
-    def __init__(self, nome, categoria, console):
-        self.nome=nome
-        self.categoria=categoria
-        self.console=console
-
-jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
-jogo2 = Jogo('God of War', 'Hack n Slash', 'PS2')
-jogo3 = Jogo('Mortal Kombat', 'Luta', 'PS2')
-lista = [jogo1, jogo2, jogo3]
-
-class Usuario:
-    def __init__(self, nome, nickname, senha):
-        self.nome = nome
-        self.nickname = nickname
-        self.senha = senha
-
-usuario1 = Usuario("Bruno Divino", "BD", "alohomora")
-usuario2 = Usuario("Camila Ferreira", "Mila", "paozinho")
-usuario3 = Usuario("Guilherme Louro", "Cake", "python_eh_vida")
-
-usuarios = { usuario1.nickname : usuario1,
-             usuario2.nickname : usuario2,
-             usuario3.nickname : usuario3 }
 
 app = Flask(__name__)
 app.secret_key = 'alura'
+app.config["SQLACLHEMY_DATABASE_URI"] = \
+    '{SGDB}://{usuario}:{senha}@{servidor}/{database}'.format(
+        SGBD = 'mysql+mysqlconnector',
+        usuario = 'root',
+        senha = 'Binfae@45',
+        servidor = 'localhost',
+        database = 'jogoteca'  
+    )
+
+db = SQLAlchemy(app)
+
+
+#  criando a class com ORM para fazer a migração no banco de dados 
+class Jogos(db.Model):
+    id = db.column(db.Integer, primary_key=True, autoincrement=True)
+    nome = db.column(db.String(50), nullable=False)
+    categoria = db.Column(db.String(40), nullable=False)
+    console =  db.Column(db.String(20), nullable=False)
+
+    def __repr__(self):
+        return '<Name % r>' % self.name 
+
+
+class Usuarios(db.Model):
+    nickname = db.Column(db.string(20), primary_key=True)
+    nome = db.Column(db.string(20), nullable=False)
+    senha  = db.Column(db.String(20), nullable=False)
+    
+    def __repr__(self):
+       
+        return '<Name %r>' % self.name 
+
+
 
 @app.route('/')
 def index():
+    # ordenando a lista de jogos cadastrados no banco de dados 
+    lista = Jogos.query.order_by(Jogos.id)
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 @app.route('/novo')
@@ -43,19 +56,29 @@ def criar():
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
-    jogo = Jogo(nome, categoria, console)
-    lista.append(jogo)
-    return redirect(url_for('index'))
 
+    jogo = Jogos.query.filter_by(nome=nome).first()
+
+    if jogo:
+        flash('Jogo já existente!')
+        return redirect(url_for('index'))
+
+    novo_jogo = Jogos(nome=nome, categoria=categoria, console=console)
+    db.session.add(novo_jogo)
+    db.session.commit()
+
+    return redirect(url_for('index'))
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima')
     return render_template('login.html', proxima=proxima)
 
+
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
-    if request.form['usuario'] in usuarios:
-        usuario = usuarios[request.form['usuario']]
+    # selecionando a query para filtrar pelo o nome de acordo que vem pelo o forms do frontend
+    usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
+    if usuario:
         if request.form['senha'] == usuario.senha:
             session['usuario_logado'] = usuario.nickname
             flash(usuario.nickname + ' logado com sucesso!')
