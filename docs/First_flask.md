@@ -1,22 +1,24 @@
-## Flask é micro-framewrok
+## Flask: Um Microframework Simples e Poderoso
 
+### Primeiros Passos
 
-### Primeiros Passos 
-Aprendir que podemos criar funções e renderizar no campo do HTML de forma simples e descomplicada, diferente do djago que não entrava na minha cabeça e não fazia sentido. Também aprendir fazer uma conexão com `class` instanciando objetos simples, também aprendir requsição de formularios aonde podemos buscar o `GET` e `POST` e redenrizando em rotas especificas.
+Descobri que posso criar funções e renderizá-las no HTML de maneira simples e descomplicada com o Flask. Isso é bastante diferente do Django, que antes parecia confuso e não fazia sentido para mim. Também aprendi a realizar conexões com classes, instanciando objetos de forma simples. Além disso, compreendi como lidar com requisições de formulários, tanto através de `GET` quanto `POST`, renderizando em rotas específicas.
 
-### Arquivos estaticos 
-Aprendir redenrizar arquivos staticos, o micro-framework `Flask` ele reconhece a pasta templates aonde contémm os arquivos `.HTML` e com isso também não seria diferente com os arquivos estaticos que são o `.css`  e `.js` ele irá processar na pasta `static`. 
+### Arquivos Estáticos
 
-**Dica:** Sempre criar um aqruivo `templates.html` ele servivar de esqueleto para outros aruqivos `.html`
+Aprendi a renderizar arquivos estáticos no Flask. O microframework reconhece a pasta `templates` para arquivos `.HTML` e, da mesma forma, para arquivos estáticos como `.css` e `.js`, ele os processa na pasta `static`.
 
-**Aprendir de fato a lidar com** ->
+**Dica:** É sempre útil criar um arquivo `base.html` que servirá de esqueleto para outros arquivos `.html`.
 
-- Como fazer redirecionamento de páginas através da função redirect().
-- Como utilizar o bootstrap para estilizar nossa página.
-- Como reutilizar trechos do template.
-- Como gerar URLs dinâmicas.
+Aprofundei meu conhecimento em:
 
+- Redirecionamento de páginas usando a função `redirect()`.
+- Utilização do Bootstrap para estilizar páginas.
+- Reutilização de trechos de template.
+- Geração de URLs dinâmicas.
 
-Tratamento de usuários para conectar no site e desconectar, tratamento de rotas com views, aprendir também utilizar o `flash` e ``session`` do Flask para manipular warnings no site com cookies do navegador, também aprendir que podemos passar o for no para que ele encontra o diretorio de arquivos staticos, usando o comando `for_url({ "static" filename=css/bootstrap.css} )`..
+### Tratamento de Usuários
 
-De fato o Flask é bem mais fácil de se usar para desenvolver pequenas coisas ou até mesmo um ORM é muito robusto e fácil de se usar.
+Aprendi a tratar a conexão e desconexão de usuários no site, bem como a manipular alertas no site usando os recursos `flash` e `session` do Flask, que utilizam cookies do navegador. Também descobri como passar o loop `for` para encontrar o diretório de arquivos estáticos, utilizando o comando `url_for({ "static", filename="css/bootstrap.css" })`.
+
+Flask, além de ser mais fácil de usar para desenvolver pequenos projetos, mostra-se robusto e intuitivo, inclusive ao trabalhar com ORMs.
