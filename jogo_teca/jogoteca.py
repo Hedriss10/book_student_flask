@@ -1,23 +1,12 @@
-from flask import Flask, render_template, request
-from flask import redirect, session, flash, url_for
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-
 app = Flask(__name__)
-app.secret_key = 'alura'
-app.config["SQLACLHEMY_DATABASE_URI"] = \
-    '{SGDB}://{usuario}:{senha}@{servidor}/{database}'.format(
-        SGBD = 'mysql+mysqlconnector',
-        usuario = 'root',
-        senha = 'Binfae@45',
-        servidor = 'localhost',
-        database = 'jogoteca'  
-    )
+app.config.from_pyfile('config.py')
 
 db = SQLAlchemy(app)
 
+from views import *
 
-
-
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

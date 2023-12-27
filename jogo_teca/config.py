@@ -1,12 +1,10 @@
+SECRET_KEY = 'alura'
 
-
-SECRET_KEY = "alura"
-
-SQLALCHEMY_DATABASE_URI  = \
-    '{SGDB}://{usuario}:{senha}@{servidor}/{database}'.format(
-        SGDB='mysql+mysqlconnector',  # Correção aqui
-        usuario='root',
-        senha='Binfae@45',
-        servidor='localhost',
-        database='jogoteca'
+SQLALCHEMY_DATABASE_URI = \
+    '{SGBD}://{usuario}:{senha}@{servidor}/{database}'.format(
+        SGBD = 'mysql+mysqlconnector',
+        usuario = 'root',
+        senha = 'Binfae@45',
+        servidor = 'localhost',
+        database = 'jogoteca'
     )
